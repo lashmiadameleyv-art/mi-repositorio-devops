@@ -3,21 +3,20 @@ pipeline {
 
     stages {
 
-        stage('Clonar Código') {
+        stage('Actualizar Código') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/TUUSUARIO/mi-repositorio-devops.git'
+                checkout scm
             }
         }
 
-        stage('Build Docker') {
+        stage('Rebuild y Deploy') {
             steps {
-                sh 'sudo docker-compose down || true'
-                sh 'sudo docker-compose up -d --build'
+                sh 'cd $WORKSPACE && sudo docker-compose down || true'
+                sh 'cd $WORKSPACE && sudo docker-compose up -d --build'
             }
         }
 
-        stage('Verificar Contenedor') {
+        stage('Verificar') {
             steps {
                 sh 'sudo docker ps'
             }
