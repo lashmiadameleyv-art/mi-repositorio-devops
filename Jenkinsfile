@@ -11,14 +11,14 @@ pipeline {
 
         stage('Rebuild y Deploy') {
             steps {
-                sh 'cd $WORKSPACE && sudo docker-compose down || true'
-                sh 'cd $WORKSPACE && sudo docker-compose up -d --build'
+                sh 'cd $WORKSPACE && docker-compose down || true'
+                sh 'cd $WORKSPACE && docker-compose up -d --build'
             }
         }
 
         stage('Verificar') {
             steps {
-                sh 'sudo docker ps'
+                sh 'docker ps'
             }
         }
     }
